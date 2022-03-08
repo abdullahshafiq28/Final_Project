@@ -6,18 +6,20 @@ import { useDispatch, useSelector } from 'react-redux'
 //import { useNavigate } from 'react-router-dom'
 
 const CreatePost = () => {
-  const [postTitle, setPostTitle] = useState()
-  const [postContent, setPostContent] = useState()
+  const [post, setPost] = useState({
+    title: '',
+    content: '',
+    id: 0
+  })
+
   const setI = useSelector(state => state.setUser)
   const dispatch = useDispatch()
   //const navigate = useNavigate()
 
   const postHandle = async () => {
     const temp = 1
-
     dispatch({ type: 'setId', tempId: temp })
-    dispatch({ type: 'setPostTitle', tempTitle: postTitle })
-    dispatch({ type: 'setPostContent', tempContent: postContent })
+    dispatch({ type: 'setPost', tempPost: post })
     try {
       set(ref(firebaseDatabase, 'users/' + 1), setI)
     } catch (error) {
@@ -26,10 +28,8 @@ const CreatePost = () => {
   }
 
   const draftPostHandle = async () => {
-    dispatch({ type: 'setDraftPostTitle', tempTitle: postTitle })
-    dispatch({ type: 'setDraftPostContent', tempContent: postContent })
+    dispatch({ type: 'setDraftPost', tempPost: postTitle })
   }
-
   return (
     <>
       <Taskbar />
@@ -39,7 +39,7 @@ const CreatePost = () => {
           <input
             className='inputFieldStyle'
             onChange={event => {
-              setPostTitle(event.target.value)
+              setPost({ ...post, title: event.target.value })
             }}
           ></input>
         </div>
@@ -47,7 +47,7 @@ const CreatePost = () => {
           <h1>Content </h1>
           <input
             onChange={event => {
-              setPostContent(event.target.value)
+              setPost({ ...post, content: event.target.value })
             }}
             className='contentFieldStyle'
           ></input>

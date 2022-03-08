@@ -1,51 +1,51 @@
 import Taskbar from './Taskbar'
 import { useNavigate } from 'react-router-dom'
-import { onValue, ref, getDatabase } from 'firebase/database'
-import { useEffect, useState } from 'react'
+//import { onValue, ref, getDatabase } from 'firebase/database'
+// import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const Home = () => {
   const navigate = useNavigate()
   const confirm = () => {
-    navigate('/CreatePost')
+    console.log('isLOgin')
+    if (getUser.isLogin == 'true') {
+      navigate('/CreatePost')
+      console.log(getUser.isLogin)
+    }
   }
   const ViewDraftPage = () => {
     navigate('/ViewDraft')
   }
-  const [myContent, setMyContent] = useState({
-    title: [],
-    content: []
-  })
+  // const [myContent, setMyContent] = useState({
+  //   title: [],
+  //   content: []
+  // })
 
   const getUser = useSelector(state => state.setUser)
-
-  useEffect(() => {
-    const db = getDatabase()
-    const getPostContent = ref(db, 'users/' + 21 + '/draftPosts/postContent')
-    var contentData = []
-    onValue(getPostContent, snapshot => {
-      contentData = snapshot.val()
-      // console.log('post content')
-      // console.log(contentData)
-      // setMyContent({
-      //   content: [data]
-      // })
-    })
-    const getPostTitle = ref(db, 'users/' + 21 + '/draftPosts/postsTitle')
-
-    onValue(getPostTitle, snapshot => {
-      const data = snapshot.val()
-      // console.log('post title')
-      // console.log(data)
-      setMyContent({
-        title: [data],
-        content: [contentData]
-      })
-    })
-
-    console.log('complete post')
-    console.log(myContent)
-  }, [])
+  console.log(getuser)
+  //useEffect(() => {
+  // const db = getDatabase()
+  // const getPostContent = ref(db, 'users/' + 21 + '/draftPosts/postContent')
+  // var contentData = []
+  // onValue(getPostContent, snapshot => {
+  //   contentData = snapshot.val()
+  // setMyContent({
+  //   content: [data]
+  // })
+  // })
+  // const getPostTitle = ref(db, 'users/' + 21 + '/draftPosts/postsTitle')
+  // onValue(getPostTitle, snapshot => {
+  //   const data = snapshot.val()
+  //   // console.log('post title')
+  //   // console.log(data)
+  //   setMyContent({
+  //     title: [data],
+  //     content: [contentData]
+  //   })
+  // })
+  // console.log('complete post')
+  // console.log(myContent)
+  //}, [])
 
   return (
     <>
@@ -72,7 +72,7 @@ const Home = () => {
           <div className='row postTitle'>
             <h1>POSTS</h1>
           </div>
-          {myContent.title.map(temp => {
+          {/* {myContent.title.map(temp => {
             console.log(temp)
             return (
               <>
@@ -90,7 +90,7 @@ const Home = () => {
                 </div>
               </>
             )
-          })}
+          })} */}
         </div>
       </div>
     </>

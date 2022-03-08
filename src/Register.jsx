@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, firebaseDatabase } from './FirebaseConfig'
-import { child, onValue, ref, set, getDatabase } from 'firebase/database'
+import { ref, set } from 'firebase/database'
 import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
@@ -13,9 +13,10 @@ const Register = () => {
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-      userCount = userCount + 1
+      userCount = userCount + user.uid
       set(ref(firebaseDatabase, 'users/' + userCount), { name: registerName })
       navigate('/')
+      //child, onValue, getDatabase
       // const db = getDatabase()
       // const starCountRef = ref(db, 'users/' + 1 + '/content')
       // onValue(starCountRef, snapshot => {

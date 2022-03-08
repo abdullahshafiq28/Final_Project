@@ -2,15 +2,18 @@ import { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from './FirebaseConfig'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
       console.log(user)
+      dispatch({ type: 'setIsLogin' })
       navigate('/')
     } catch (error) {
       console.log(error.message)

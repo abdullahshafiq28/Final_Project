@@ -2,17 +2,18 @@ const initialUsers={
     id:0,
     name: '',
     email: '',
-    posts: {
-      postsTitle: [],
-      postContent: []
-    },
-    draftPosts:{
-        postsTitle: [],
-        postContent: []
+    isLogin:'false',
+    posts: [
+         {
+           id: 0,title:'',content:''
+         }
+    ],
+    draftPosts:[
+      {
+        id: 0,title:'',content:''
       }
+ ]
   }
-
-
 export const setUser = ( state=initialUsers, action) => {
    switch (action.type)
    {
@@ -21,26 +22,21 @@ export const setUser = ( state=initialUsers, action) => {
          state.id =  action.tempId;
          return state;
        }    
-       case "setEmail":return state;
-       case "setName": return state;
-       case 'setPostTitle': 
+       case 'setEmail':return state;
+       case 'setName': return state;
+       case 'setIsLogin':
        {
-        state.posts.postsTitle.push(action.tempTitle);
+        state.isLogin='true';
         return state;
        }
-       case 'setPostContent': 
+       case 'setPost': 
        {
-        state.posts.postContent.push(action.tempContent);
+        state.posts.push(action.tempPost);
         return state;
        }
-       case 'setDraftPostTitle': 
+       case 'setDraftPost': 
        {
-        state.draftPosts.postsTitle.push(action.tempTitle);
-        return state;
-       }
-       case 'setDraftPostContent': 
-       {
-        state.draftPosts.postContent.push(action.tempContent);
+        state.draftPosts.push(action.tempPost);
         return state;
        }
        default: return state;
