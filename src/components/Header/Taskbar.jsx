@@ -2,10 +2,12 @@ import { useNavigate } from 'react-router-dom'
 
 const Taskbar = () => {
   const navigate = useNavigate()
+
   const confirmLogin = () => {
     navigate('/Login')
   }
-  const confirm = () => {
+
+  const confirmSignup = () => {
     navigate('/Signup')
   }
 
@@ -17,12 +19,11 @@ const Taskbar = () => {
         </button>
       </div>
       <div className='signUpButton'>
-        <button className='buttonStyle' onClick={confirm}>
+        <button className='buttonStyle' onClick={confirmSignup}>
           Sign Up
         </button>
       </div>
     </div>
   )
 }
-
 export default Taskbar

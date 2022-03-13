@@ -24,16 +24,24 @@ code {
   margin-bottom: 20px;
 }
 
+.editbutton {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  margin-left: 20px !important;
+}
 .taskBar {
   display: flex !important;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  background-color: #202124;
+  padding-top: 50px;
+  background-image: url('./assets/images/index1.png');
+  background-size: cover;
+  padding-bottom: 200px;
 }
 .buttonStyle {
   width: 85px !important;
   height: 40px;
   font-size: 18px;
+  color: white;
+  background-color:peru;
 }
 
 .loginButton {
@@ -44,10 +52,13 @@ code {
 }
 .sideMenu {
   width: 15% !important;
-  background-color: #202124;
+  background-color:rgb(222, 139, 39);
   padding-bottom: 39%;
+  background-image: url('./assets/images/index1.png');
+  
 }
 .menuStyle {
+  margin-top: 50px;
   padding-left: 27%;
   padding-top: 10%;
 }
@@ -55,13 +66,28 @@ code {
   width: 125px !important;
   height: 40px;
   font-size: 18px;
+  color: white;
+  background-color:peru;
+}
+
+hr.line{
+  border: 2px solid black;
+  border-radius: 1px;
+  margin-bottom: 5%;
+  margin-top: 10%;
+  width:30% !important;
 }
 .createPost {
   padding-top: 7%;
+  margin-left: 11% !important;
 }
 .postTitle {
   text-align: center;
-  color: darkslategray;
+  color: black;
+}
+.stylecenter
+{
+  margin-right: 30% !important;
 }
 .postContent {
   margin-right: 5% !important;
@@ -100,7 +126,13 @@ code {
   font-size: 18px;
   margin-top: 3%;
 }
-
+.submitButtonStyle {
+  width: 125px !important;
+  height: 40px;
+  font-size: 18px;
+  margin-top: 3%;
+  margin-left: 18%;
+}
 .boxDesign {
   color: #202124;
   text-align: center !important;

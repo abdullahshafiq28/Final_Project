@@ -1,14 +1,12 @@
-import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Register from './Register'
-import CreatePost from './CreatePost'
-import Home from './Home'
-import Login from './Login';
-import ViewDraft from './ViewDraft'
-import ViewPost from './ViewPost';
+
+import { Taskbar } from './components'
+import { Home, CreatePost, Login, Register, EditPost, ViewDraft, ViewPost } from './containers'
+import './App.css'
 
 const App = () =>  (
   <Router>
+    <Taskbar />
     <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Login' element={<Login />} />
@@ -16,8 +14,9 @@ const App = () =>  (
         <Route path='/CreatePost' element={<CreatePost />} />
         <Route path='/ViewDraft' element={<ViewDraft />} />
         <Route path='/ViewPost' element={<ViewPost />} />
-    </Routes>        
+        <Route path='/EditPost' element={<EditPost />} />
+    </Routes>
   </Router>
 )
 
-export default App;
+export default App
