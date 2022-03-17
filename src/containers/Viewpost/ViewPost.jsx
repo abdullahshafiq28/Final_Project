@@ -5,51 +5,38 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components'
 import { firebaseDatabase } from '../../FirebaseConfig'
-
+import { editPost, deletePost  } from '../../redux/actions'
+ 
 const ViewPost = () => {
   const [user, setUser] = useState([])
-  const getUser = useSelector(state => state.setUser)
+  const userData = useSelector(state => state.setUser)
   const UserCollectionRef = collection(firebaseDatabase, 'users')
-  const UserCollection = doc(firebaseDatabase, 'users', getUser.id)
+  const UserCollection = doc(firebaseDatabase, 'users', userData.id)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const confirmCreatePost = () => {
-    if (getUser.isLogin == true) {
-      navigate('/CreatePost')
-    }
-  }
-  const viewDraftPage = () => {
-    navigate('/ViewDraft')
-  }
-  const viewMyPostPage = () => {
-    navigate('/ViewPost')
-  }
-
-  var data
   useEffect(async () => {
-    data = await getDocs(UserCollectionRef)
+    setDoc(UserCollection, userData)
+    var data = await getDocs(UserCollectionRef)
     data.docs.map(temp => {
-      if (temp.id == getUser.id) {
+      if (temp.id == userData.id) {
         setUser({ ...temp.data(), id: temp.id })
       }
     })
-  }, [])
+  }, [userData])
 
-  const deleteHandle = myHelp => {
-    getUser.posts.map(temp => {
+  const handleDelete = myHelp => {
+    userData.posts.map(temp => {
       if (temp.id == myHelp) {
-        dispatch({ type: 'deletePost', tempPost: temp.id })
-        setDoc(UserCollection, getUser)
-        navigate('/')
+        dispatch(deletePost( temp.id ))
       }
     })
   }
-  const editHandle = myHelp => {
-    getUser.posts.map(temp => {
+  const handleEdit = myHelp => {
+    userData.posts.map(temp => { 
       if (temp.id == myHelp) {
-        dispatch({ type: 'deletePost', tempPost: temp.id })
-        dispatch({ type: 'editPost', tempPost: temp })
+        dispatch(deletePost( temp.id ))
+        dispatch(editPost( temp ))
         navigate('/EditPost')
       }
     })
@@ -59,17 +46,25 @@ const ViewPost = () => {
         <div className='sideMenu'>
           <Button
             title={'Create Post'}
-            onClick={confirmCreatePost}
+            onClick={ () => {
+              if (userData.isLogin == true) {
+                navigate('/CreatePost')
+              }
+            }}
             styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
           />
           <Button
             title={' View Post'}
-            onClick={viewMyPostPage}
+            onClick={ () => {
+              navigate('/ViewPost')
+            }}
             styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
           />
           <Button
             title={' View Draft'}
-            onClick={viewDraftPage}
+            onClick={ () => {
+              navigate('/ViewDraft')
+            }}
             styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
           />
         </div>
@@ -86,7 +81,7 @@ const ViewPost = () => {
                 <button
                   className='loginbutton'
                   onClick={() => {
-                    deleteHandle(temp.id)
+                    handleDelete(temp.id)
                   }}
                 >
                   {' '}
@@ -95,7 +90,7 @@ const ViewPost = () => {
                 <button
                   className='editbutton'
                   onClick={() => {
-                    editHandle(temp.id)
+                    handleEdit(temp.id)
                   }}
                 >
                   {' '}

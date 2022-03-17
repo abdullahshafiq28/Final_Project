@@ -6,54 +6,86 @@ const initialUsers = {
   posts: [],
   draftPosts: []
 }
+const setId='setId'
+const setName='setName'
+const setIsLogin='setIsLogin'
+const setLogout='setLogout'
+const setPost='setPost'
+const deletePost='deletePost'
+const deleteDraftPost='deleteDraftPost'
+const setDraftPost='setDraftPost'
+const editPost='editPost'
 
 export const setUser = ( state=initialUsers, action) => {
   switch (action.type) {
-    case 'setId': {
-      state.id = action.tempId
+    case setId: {
 
-      return state
+      return {
+        ...state,
+        id : action.tempId
+      }
     }
 
-    case 'setName': {
-     state.name = action.myName
+    case setName: {
 
-     return state
+      return {
+        ...state,
+        name : action.myName
+      }
     }
 
-    case 'setIsLogin': {
-      state.isLogin = true
+    case setIsLogin: {
 
-      return state
+      return {
+        ...state,
+        isLogin : true
+      } 
     }
-    case 'setPost': {
-      state.posts.push(action.tempPost)
+    case setLogout: {
 
-      return state
+      return {
+        ...state,
+        isLogin : false
+      } 
     }
+    case setPost: {
 
-    case 'deletePost': {
-      state.posts = state.posts.filter(temp => temp.id != action.tempPost)
-
-      return state
-    }
-
-    case 'deleteDraftPost': {
-      state.draftPosts = state.draftPosts.filter(temp => temp.id != action.tempPost)
-
-      return state
-    }
-
-    case 'setDraftPost': {
-      state.draftPosts.push(action.tempPost)
-
-      return state
+      return {
+        ...state,
+        posts : [...state.posts, action.postData]
+      } 
     }
 
-    case 'editPost': {
-      state.editPost = action.tempPost
+    case deletePost: {
 
-      return state
+      return {
+        ...state,
+        posts : state.posts.filter(temp => temp.id != action.delPost)
+      } 
+    }
+
+    case deleteDraftPost: {
+
+      return {
+        ...state,
+        draftPosts : state.draftPosts.filter(temp => temp.id != action.delDraftPost)
+      } 
+    }
+
+    case setDraftPost: {
+
+      return {
+        ...state,
+        draftPosts : [...state.draftPosts, action.setdraft]
+      } 
+    }
+
+    case editPost: {
+
+      return {
+        ...state,
+        editPost : action.seteditpost
+      } 
     }
 
     default: return state

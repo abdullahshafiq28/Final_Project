@@ -5,47 +5,33 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components'
 import { firebaseDatabase } from '../../FirebaseConfig'
+import { deleteDraftPost, setPost } from '../../redux/actions'
+ 
 
 const ViewDraft = () => {
   const [user, setUser] = useState([])
-  const getUser = useSelector(state => state.setUser)
+  const userData = useSelector(state => state.setUser)
   const UserCollectionRef = collection(firebaseDatabase, 'users')
-  const UserCollection = doc(firebaseDatabase, 'users', getUser.id)
+  const UserCollection = doc(firebaseDatabase, 'users', userData.id)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  const confirmCreatePost = () => {
-    if (getUser.isLogin == true) {
-      navigate('/CreatePost')
-    }
-  }
-
-  const viewDraftPage = () => {
-    navigate('/ViewDraft')
-  }
-
-  const viewMyPostPage = () => {
-    navigate('/ViewPost')
-  }
-
-  var data
+  
   useEffect(async () => {
-    data = await getDocs(UserCollectionRef)
+    var data = await getDocs(UserCollectionRef)
     data.docs.map(temp => {
-      if (temp.id == getUser.id) {
+      if (temp.id == userData.id) {
         setUser({ ...temp.data(), id: temp.id })
       }
     })
   }, [])
 
   const editDeleteHandle = myHelp => {
-    getUser.draftPosts.map(temp => {
+    userData.draftPosts.map(temp => {
       if (temp.id == myHelp) {
-        dispatch({ type: 'deleteDraftPost', tempPost: temp.id })
-        dispatch({ type: 'setPost', tempPost: temp })
-        console.log(myHelp)
-        setDoc(UserCollection, getUser)
-        navigate('/')
+        dispatch(deleteDraftPost(temp.id))
+        dispatch(setPost( temp ))
+        setDoc(UserCollection, userData)
+        navigate('/Home')
       }
     })
   }
@@ -54,17 +40,25 @@ const ViewDraft = () => {
         <div className='sideMenu'>
           <Button
             title={'Create Post'}
-            onClick={confirmCreatePost}
+            onClick={ () => {
+              if (userData.isLogin == true) {
+                navigate('/CreatePost')
+              }
+            }}
             styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
           />
           <Button
             title={' View Post'}
-            onClick={viewMyPostPage}
+            onClick={ () => {
+              navigate('/ViewPost')
+            }}
             styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
           />
           <Button
             title={' View Draft'}
-            onClick={viewDraftPage}
+            onClick={() => {
+              navigate('/ViewDraft')
+            }}
             styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
           />
         </div>
@@ -93,7 +87,6 @@ const ViewDraft = () => {
                   <p>{temp.content}</p>
                 </div>
               </div>
-
               <div className='author'>
                 <p>~{user.name}</p>
               </div>

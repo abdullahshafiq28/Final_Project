@@ -29,6 +29,7 @@ code {
   margin-bottom: 20px;
   margin-left: 20px !important;
 }
+
 .taskBar {
   display: flex !important;
   padding-top: 50px;
@@ -36,6 +37,7 @@ code {
   background-size: cover;
   padding-bottom: 200px;
 }
+
 .buttonStyle {
   width: 85px !important;
   height: 40px;
@@ -47,21 +49,24 @@ code {
 .loginButton {
   margin-left: 75% !important;
 }
+
 .signUpButton {
   margin-left: 5% !important;
 }
+
 .sideMenu {
   width: 15% !important;
   background-color:rgb(222, 139, 39);
   padding-bottom: 39%;
-  background-image: url('./assets/images/index1.png');
-  
+  background-image: url('./assets/images/index1.png'); 
 }
+
 .menuStyle {
   margin-top: 50px;
   padding-left: 27%;
   padding-top: 10%;
 }
+
 .menuButtonStyle {
   width: 125px !important;
   height: 40px;
@@ -77,55 +82,68 @@ hr.line{
   margin-top: 10%;
   width:30% !important;
 }
+
 .createPost {
   padding-top: 7%;
   margin-left: 11% !important;
 }
+
 .postTitle {
   text-align: center;
   color: black;
 }
+
 .stylecenter
 {
   margin-right: 30% !important;
 }
+
 .postContent {
   margin-right: 5% !important;
   font-size: 20px !important;
 }
+
 .marginProperty {
   margin-left: 25% !important;
 }
+
 .marginTop {
   margin-top: 40px !important;
 }
+
 .marginPropertyLeft {
   margin-left: 80% !important;
 }
+
 .author {
   margin-left: 80% !important;
   font-size: larger;
   font-style: italic;
   color: brown;
 }
+
 .marginLeft {
   margin-left: 45% !important;
 }
+
 .inputFieldStyle {
   width: 60%;
   height: 30px;
 }
+
 .contentFieldStyle {
   width: 60%;
   height: 30px;
   padding-bottom: 15%;
 }
+
 .postButtonStyle {
   width: 125px !important;
   height: 40px;
   font-size: 18px;
   margin-top: 3%;
 }
+
 .submitButtonStyle {
   width: 125px !important;
   height: 40px;
@@ -133,6 +151,7 @@ hr.line{
   margin-top: 3%;
   margin-left: 18%;
 }
+
 .boxDesign {
   color: #202124;
   text-align: center !important;
@@ -146,21 +165,33 @@ hr.line{
   width: 25% !important;
   background-color: white !important;
 }
+
 .smallStyle {
   margin-top: 20px;
 }
+
 .posts {
   width: 80% !important;
   margin-left: 5%;
 }
+
 .row {
   width: 100% !important;
 }
+
 .displayProperty {
   display: flex !important;
 }
+
 .postTitle {
   margin-left: -15% !important;
+}
+.errorclass
+{
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 10px;
+  margin: 20px;
 }
 @media only screen and (min-width: 800px) {
   .boxDesign {

@@ -6,12 +6,14 @@ import { useDispatch } from 'react-redux'
 
 import { auth, firebaseDatabase } from '../../FirebaseConfig'
 import { InputField } from '../../components'
-
+import { setName, setDraftPost, setPost, setId, setIsLogin, setPostId, setdraftPostId} from '../../redux/actions'
+ 
 const Login = () => {
   const [loading, setLoading] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [userData, setUserData] = useState()
+  const [displayError, setDisplayError] = useState()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const UserCollection = collection(firebaseDatabase, 'users')
@@ -24,23 +26,28 @@ const Login = () => {
   }, [])
 
   const login = async () => {
-    const user = await signInWithEmailAndPassword(auth, email, password)
-    userData?.docs?.map(temp => {
-      if (temp.id == user.user.uid) {
-        dispatch({ type: 'setName', myName: temp.data().name })
-        temp.data().posts.map(temp => {
-          dispatch({ type: 'setPost', tempPost: temp })
-          dispatch({ type: 'setPostId' })
-        })
-        temp.data().draftPosts.map(temp => {
-          dispatch({ type: 'setDraftPost', tempPost: temp })
-          dispatch({ type: 'setdraftPostId'})
-        })
-      }
-    })
-    dispatch({ type: 'setId', tempId: user.user.uid })
-    dispatch({ type: 'setIsLogin' })
-    navigate('/')
+     try{
+       const user = await signInWithEmailAndPassword(auth, email, password)
+       userData.docs.forEach(temp => {
+        if (temp.id == user.user.uid) {
+          dispatch(setName(temp.data().name))
+          temp.data().posts.map(temp => {
+            dispatch(setPost(temp))
+            dispatch(setPostId())
+          })
+          temp.data().draftPosts.map(temp => {
+            dispatch(setDraftPost(temp))
+            dispatch(setdraftPostId())
+          })
+        }
+      })
+      dispatch(setId(user.user.uid))
+      dispatch(setIsLogin())
+      navigate('/Home')
+    }
+    catch(error){
+       setDisplayError('Fire Authentication Error!')
+    }
   }
 
   return (
@@ -55,15 +62,20 @@ const Login = () => {
               setEmail(event.target.value)
             }}
             styling={{ container: 'smallStyle', mytext: 'Email...' }}
+            type={'email'}
           />
           <InputField 
             onChange={event => {
               setPassword(event.target.value)
             }}
             styling={{ container: 'smallStyle', mytext: 'Password...' }}
+            type={'password'}
           />
+          <div className='errorclass'>
+            <h5> {displayError}  </h5>
+          </div> 
           <div className='row'>
-            <button className='loginbutton' onClick={login}>
+            <button  disabled={ !password || !email} className='loginbutton' onClick={login}>
               {' '}
               Login
             </button>

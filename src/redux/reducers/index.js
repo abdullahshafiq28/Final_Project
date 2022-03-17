@@ -1,10 +1,10 @@
 import {setUser } from './setUsers'
-import { setHelp } from './help'
+import { manageIds } from './manageId'
 import { combineReducers } from 'redux'
 
 const rootReducer = combineReducers({
   setUser: setUser,
-  setHelp: setHelp
+  manageIds: manageIds
 })
 
 export default rootReducer

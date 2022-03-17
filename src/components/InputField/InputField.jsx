@@ -4,6 +4,7 @@ const InputField = (props) => (
       className={props.styling.container}
       placeholder={props.styling.mytext}
       onChange={props.onChange}
+      type={props.type}
     />
   </div>   
 )

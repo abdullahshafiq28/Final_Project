@@ -5,19 +5,28 @@ import { useState } from 'react'
 
 import { auth } from '../../FirebaseConfig'
 import { InputField } from '../../components'
-
+import { setName } from '../../redux/actions'
+ 
 const Register = () => {
   const [registerEmail, setRegisterEmail] = useState('')
   const [registerPassword, setRegisterPassword] = useState('')
   const [registerName, setRegisterName] = useState('')
+  const [displayError,setDisplayError] = useState()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const register = async () => {
-    const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-    console.log(user)
-    dispatch({ type: 'setName', myName: registerName })
-    navigate('/')
+    try{
+      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+      console.log(user)
+      dispatch( setName(registerName))
+      navigate('/')
+    }
+    catch(error)
+    {
+       setDisplayError('User Registeration Failed!!!')
+    }
+   
   }
 
   return (
@@ -30,21 +39,27 @@ const Register = () => {
           setRegisterName(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Name' }}
+        type={'name'}
       />
       <InputField 
         onChange={ event => { 
           setRegisterEmail(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Email...' }}
+        type={'email'}
       />
       <InputField 
         onChange={ event => { 
           setRegisterPassword(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Password...' }}
+        type={'password'}
       />
-      <div className='row'>
-        <button className='loginbutton' onClick={register}>
+       <div className='errorclass'>
+            <h5> {displayError}  </h5>
+          </div> 
+       <div className='row'>
+        <button  disabled={ !registerPassword || !registerEmail || !registerName} className='loginbutton' onClick={register}>
           {' '}
           Create User
         </button>
