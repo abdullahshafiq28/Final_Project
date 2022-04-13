@@ -6,27 +6,23 @@ import { useState } from 'react'
 import { auth } from '../../FirebaseConfig'
 import { InputField } from '../../components'
 import { setName } from '../../redux/actions'
- 
+
 const Register = () => {
-  const [registerEmail, setRegisterEmail] = useState('')
-  const [registerPassword, setRegisterPassword] = useState('')
-  const [registerName, setRegisterName] = useState('')
-  const [displayError,setDisplayError] = useState()
+  const [registerEmail, setRegisterEmail] = useState<string>('')
+  const [registerPassword, setRegisterPassword] = useState<string>('')
+  const [registerName, setRegisterName] = useState<string>('')
+  const [displayError, setDisplayError] = useState<string>()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const register = async () => {
-    try{
-      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-      console.log(user)
-      dispatch( setName(registerName))
+    try {
+      await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+      dispatch(setName(registerName))
       navigate('/')
+    } catch (error) {
+      setDisplayError('User Registeration Failed!!!')
     }
-    catch(error)
-    {
-       setDisplayError('User Registeration Failed!!!')
-    }
-   
   }
 
   return (
@@ -34,32 +30,36 @@ const Register = () => {
       <div className='row'>
         <h1> Register User </h1>
       </div>
-      <InputField 
-        onChange={ event => { 
+      <InputField
+        onChange={(event:any) => {
           setRegisterName(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Name' }}
         type={'name'}
       />
-      <InputField 
-        onChange={ event => { 
+      <InputField
+        onChange={(event:any) => {
           setRegisterEmail(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Email...' }}
         type={'email'}
       />
-      <InputField 
-        onChange={ event => { 
+      <InputField
+        onChange={(event:any) => {
           setRegisterPassword(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Password...' }}
         type={'password'}
       />
-       <div className='errorclass'>
-            <h5> {displayError}  </h5>
-          </div> 
-       <div className='row'>
-        <button  disabled={ !registerPassword || !registerEmail || !registerName} className='loginbutton' onClick={register}>
+      <div className='errorclass'>
+        <h5> {displayError} </h5>
+      </div>
+      <div className='row'>
+        <button
+          disabled={!registerPassword || !registerEmail || !registerName}
+          className='loginbutton'
+          onClick={register}
+        >
           {' '}
           Create User
         </button>

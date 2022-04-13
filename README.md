@@ -1,4 +1,4 @@
-# Inventory System
+npm -v# Inventory System
 
 ## Requirements
 
@@ -9,13 +9,13 @@ And please use the appropriate [Editorconfig](http://editorconfig.org/) plugin f
 
 [Node](http://nodejs.org/) is really easy to install & now include [NPM](https://npmjs.org/).
 You should be able to run the following command after the installation procedure
-below.
+below
 
     $ node --version
     v14.8.0
 
     $ npm --version
-    8.5.0
+    7.5.2
 
 #### Node installation on OS X
 

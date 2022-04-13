@@ -1,48 +1,45 @@
 import { collection, getDocs } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { firebaseDatabase } from '../../FirebaseConfig'
 import { Button } from '../../components'
 
 const Home = () => {
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState<any>([])
   const UserCollectionRef = collection(firebaseDatabase, 'users')
-  const userData = useSelector(state => state.setUser)
   const navigate = useNavigate()
 
-  useEffect(async () => {
+  const getUserDocs = async () => {
     var data = await getDocs(UserCollectionRef)
     setUser(data.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+  }
+
+  useEffect(() => {
+    getUserDocs()
   }, [])
-  
+
   return (
     <div className='row displayProperty'>
       <div className='sideMenu'>
         <Button
           title={'Create Post'}
-          onClick={ () => {  
-            if (userData.isLogin == true) {
+          onClick={() => {
             navigate('/CreatePost')
-          }}}
+          }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
         />
         <Button
           title={' My Posts'}
-          onClick={ () => {
-            if (userData.isLogin == true) {
-              navigate('/ViewPost')
-            }
+          onClick={() => {
+            navigate('/ViewPost')
           }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
         />
         <Button
           title={' View Draft'}
-          onClick={ () => {
-            if (userData.isLogin == true) {
-              navigate('/ViewDraft')
-            }
+          onClick={() => {
+            navigate('/ViewDraft')
           }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
         />
@@ -51,9 +48,9 @@ const Home = () => {
         <div className='row postTitle'>
           <h1>POSTS</h1>
         </div>
-        {user?.map(doc =>
-          doc.posts.map(temp => (
-            <div key={temp.id}>
+        {user?.map((doc:any, index1:string) =>
+          doc.posts.map((temp:any, index2:string) => (
+            <div key={(index1 + index2).toString()}>
               <div className='row postTitle marginTop'>
                 <h2>{temp.title}</h2>
               </div>
@@ -65,8 +62,8 @@ const Home = () => {
               <div className='author'>
                 <p>~{doc.name}</p>
               </div>
-              <div className='stylecenter'> 
-                <hr className='line'/>
+              <div className='stylecenter'>
+                <hr className='line' />
               </div>
             </div>
           ))
