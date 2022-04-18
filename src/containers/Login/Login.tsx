@@ -1,11 +1,11 @@
-import { collection, getDocs } from 'firebase/firestore'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { collection, getDocs } from 'firebase/firestore';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { auth, firebaseDatabase } from '../../FirebaseConfig'
-import { InputField } from '../../components'
+import { auth, firebaseDatabase } from '../../FirebaseConfig';
+import { InputField } from '../../components';
 import {
   setName,
   setDraftPost,
@@ -14,13 +14,13 @@ import {
   setIsLogin,
   setPostId,
   setdraftPostId
-} from '../../redux/actions'
+} from '../../redux/actions';
 
 const  Login = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>()
   const [email, setEmail] = useState < string > ('')
   const [password, setPassword] = useState < string > ('')
-  const [userData, setUserData] = useState<any>()
+  const [userData, setUserData] = useState<UserType[]>()
   const [displayError, setDisplayError] = useState < string >('') 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -29,10 +29,22 @@ const  Login = (): JSX.Element => {
   const getUserDocS = async () => {
     setLoading(true)
     const data = await getDocs(UserCollection)
-    setUserData(data)
+    setUserData(data.docs.map(doc => ({ ...doc.data(), id: doc.id })))
     setLoading(false)
   }
-
+  type temptype = {
+    title: string;
+    content: string;
+    id:string;
+  }
+  type UserType = {
+    id: string;
+    name?: string;
+    editPost?: string;
+    isLogin?: boolean;
+    posts?: temptype[];
+    draftPosts?: temptype[];
+  }
   useEffect(() => {
     getUserDocS()
   }, [])
@@ -40,14 +52,14 @@ const  Login = (): JSX.Element => {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password)
-      userData.docs.forEach( (temp:any) => {
+      userData?.forEach( (temp:UserType) => {
         if (temp.id == user.user.uid) {
-          dispatch(setName(temp.data().name))
-          temp.data().posts.map((temp:any) => {
+          dispatch(setName(temp.name))
+          temp.posts?.map((temp:temptype) => {
             dispatch(setPost(temp))
             dispatch(setPostId())
           })
-          temp.data().draftPosts.map((temp:any) => {
+          temp.draftPosts?.map((temp:temptype) => {
             dispatch(setDraftPost(temp))
             dispatch(setdraftPostId())
           })
@@ -69,14 +81,14 @@ const  Login = (): JSX.Element => {
             <h1> Login </h1>
           </div>
           <InputField
-            onChange={(event:any) => {
+            onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
               setEmail(event.target.value)
             }}
             styling={{ container: 'smallStyle', mytext: 'Email...' }}
             type={'email'}
           />
           <InputField
-            onChange={(event:any) => {
+            onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
               setPassword(event.target.value)
             }}
             styling={{ container: 'smallStyle', mytext: 'Password...' }}
@@ -97,4 +109,4 @@ const  Login = (): JSX.Element => {
   )
 }
 
-export default Login
+export default Login;

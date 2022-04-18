@@ -1,11 +1,11 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
-import { auth } from '../../FirebaseConfig'
-import { InputField } from '../../components'
-import { setName } from '../../redux/actions'
+import { auth } from '../../FirebaseConfig';
+import { InputField } from '../../components';
+import { setName } from '../../redux/actions';
 
 const Register = () => {
   const [registerEmail, setRegisterEmail] = useState<string>('')
@@ -31,21 +31,21 @@ const Register = () => {
         <h1> Register User </h1>
       </div>
       <InputField
-        onChange={(event:any) => {
+        onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
           setRegisterName(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Name' }}
         type={'name'}
       />
       <InputField
-        onChange={(event:any) => {
+        onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
           setRegisterEmail(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Email...' }}
         type={'email'}
       />
       <InputField
-        onChange={(event:any) => {
+        onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
           setRegisterPassword(event.target.value)
         }}
         styling={{ container: 'smallStyle', mytext: 'Password...' }}
@@ -67,4 +67,4 @@ const Register = () => {
     </div>
   )
 }
-export default Register
+export default Register;

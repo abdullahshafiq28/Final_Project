@@ -1,6 +1,6 @@
 import Home from './Home/Home'
 import CreatePost from './Createpost/CreatePost'
-import * as Login from './Login/Login'
+import Login from './Login/Login'
 import Register from './Signup/Register'
 import EditPost from './Editpost/EditPost'
 import ViewDraft from './Viewdraft/ViewDraft'

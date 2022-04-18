@@ -1,12 +1,20 @@
-import { collection, getDocs } from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { collection, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import { firebaseDatabase } from '../../FirebaseConfig'
-import { Button } from '../../components'
+import { firebaseDatabase } from '../../FirebaseConfig';
+import { Button } from '../../components';
 
 const Home = () => {
-  const [user, setUser] = useState<any>([])
+  type UserType = {
+    id: string;
+    name?: string;
+    editPost?: string;
+    isLogin?: boolean;
+    posts?: temptype[];
+    draftPosts?: temptype[];
+  }
+  const [user, setUser] = useState<UserType[]>()
   const UserCollectionRef = collection(firebaseDatabase, 'users')
   const navigate = useNavigate()
 
@@ -14,7 +22,11 @@ const Home = () => {
     var data = await getDocs(UserCollectionRef)
     setUser(data.docs.map(doc => ({ ...doc.data(), id: doc.id })))
   }
-
+  type temptype = {
+    title: string;
+    content: string;
+    id:string;
+  }
   useEffect(() => {
     getUserDocs()
   }, [])
@@ -48,8 +60,8 @@ const Home = () => {
         <div className='row postTitle'>
           <h1>POSTS</h1>
         </div>
-        {user?.map((doc:any, index1:string) =>
-          doc.posts.map((temp:any, index2:string) => (
+        {user?.map((doc:UserType, index1:number) =>
+          doc?.posts?.map((temp:temptype, index2:number) => (
             <div key={(index1 + index2).toString()}>
               <div className='row postTitle marginTop'>
                 <h2>{temp.title}</h2>
@@ -73,4 +85,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

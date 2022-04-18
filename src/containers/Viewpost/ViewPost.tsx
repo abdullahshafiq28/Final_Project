@@ -1,18 +1,19 @@
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore'
-import { confirmAlert } from 'react-confirm-alert'
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { confirmAlert } from 'react-confirm-alert';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { Button } from '../../components'
-import { firebaseDatabase } from '../../FirebaseConfig'
-import { editPost, deletePost } from '../../redux/actions'
+import { Button } from '../../components';
+import { firebaseDatabase } from '../../FirebaseConfig';
+import { editPost, deletePost } from '../../redux/actions';
+import { RootState } from 'redux/store';
 
-import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const ViewPost = () => {
-  const [user, setUser] = useState<any>([])
-  const userData = useSelector((state:any) => state.setUser)
+  const [user, setUser] = useState<UserType>()
+  const userData = useSelector((state:RootState) => state.setUser)
   const UserCollectionRef = collection(firebaseDatabase, 'users')
   const UserCollection = doc(firebaseDatabase, 'users', userData.id)
   const navigate = useNavigate()
@@ -32,7 +33,7 @@ const ViewPost = () => {
     handleUserDoc()
   }, [userData])
 
-  const submit = (myHelp:string) => {
+  const submit = (myHelp:number) => {
     confirmAlert({
       title: 'Delete Post !!',
       message: 'Are you sure to delete this.',
@@ -48,16 +49,28 @@ const ViewPost = () => {
       ]
     })
   }
-
-  const handleDelete = (myHelp:string) => {
-    userData.posts.map((temp:any) => {
+  type temptype = {
+    title: string;
+    content: string;
+    id:number;
+  }
+  type UserType = {
+    id: string;
+    name?: string;
+    editPost?: string;
+    isLogin?: boolean;
+    posts?: temptype[];
+    draftPosts?: temptype[];
+  }
+  const handleDelete = (myHelp:number) => {
+    userData.posts.map((temp:temptype) => {
       if (temp.id == myHelp) {
         dispatch(deletePost(temp.id))
       }
     })
   }
-  const handleEdit = (myHelp:string) => {
-    userData.posts.map((temp:any) => {
+  const handleEdit = (myHelp:number) => {
+    userData.posts.map((temp:temptype) => {
       if (temp.id == myHelp) {
         dispatch(deletePost(temp.id))
         dispatch(editPost(temp))
@@ -96,7 +109,7 @@ const ViewPost = () => {
         <div className='row postTitle'>
           <h1>MY POSTS</h1>
         </div>
-        {user?.posts?.map((temp:any) => (
+        {user?.posts?.map((temp:temptype) => (
           <div key={temp.id.toString()}>
             <div className='row postTitle marginTop '>
               <h2>{temp.title}</h2>
@@ -139,4 +152,4 @@ const ViewPost = () => {
   )
 }
 
-export default ViewPost
+export default ViewPost;

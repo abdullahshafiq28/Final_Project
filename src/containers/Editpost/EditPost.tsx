@@ -1,20 +1,26 @@
-import { confirmAlert } from 'react-confirm-alert'
-import { firebaseDatabase } from '../../FirebaseConfig'
-import { setDoc, doc } from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { confirmAlert } from 'react-confirm-alert';
+import { firebaseDatabase } from '../../FirebaseConfig';
+import { setDoc, doc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { setPost } from '../../redux/actions'
+import { setPost } from '../../redux/actions';
+import { RootState } from 'redux/store';
 
-import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const EditPost = () => {
-  const userData = useSelector((state:any) => state.setUser)
+  const userData = useSelector((state:RootState) => state.setUser)
   const [postTitle, setPostTitle] = useState<string>(userData.editPost.title)
   const [postContent, setPostContent] = useState<string>(userData.editPost.content)
   const [count, setCount] = useState<number>(0)
-  const [post, setPostt] = useState<object>({
+  type Post = {
+    title: string;
+    content:string;
+    id: number;
+  };
+  const [post, setPostt] = useState<Post>({
     title: '',
     content: '',
     id: userData.editPost.id
@@ -61,7 +67,7 @@ const EditPost = () => {
           type='title'
           id='titleInput'
           value={postTitle}
-          onChange={event => {
+          onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
             setPostt({ ...post, title: event.target.value })
             setPostTitle(event.target.value)
           }}
@@ -70,7 +76,7 @@ const EditPost = () => {
       <div className='postTitle'>
         <h1>Content </h1>
         <input
-          onChange={event => {
+          onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
             setPostt({ ...post, content: event.target.value })
             setPostContent(event.target.value)
           }}
@@ -88,4 +94,4 @@ const EditPost = () => {
   )
 }
 
-export default EditPost
+export default EditPost;

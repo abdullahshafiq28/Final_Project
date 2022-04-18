@@ -1,23 +1,29 @@
-import { confirmAlert } from 'react-confirm-alert'
-import { doc, setDoc } from 'firebase/firestore'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { confirmAlert } from 'react-confirm-alert';
+import { doc, setDoc } from 'firebase/firestore';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import { firebaseDatabase } from '../../FirebaseConfig'
-import { setDraftPost, setPost, setPostId, setdraftPostId } from '../../redux/actions'
+import { firebaseDatabase } from '../../FirebaseConfig';
+import { setDraftPost, setPost, setPostId, setdraftPostId } from '../../redux/actions';
+import { RootState } from 'redux/store';
 
-import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const CreatePost = () => {
-  const getIds = useSelector((state:any) => state.manageIds)
-  const [post, setPostt] = useState<any>({
+  const getIds = useSelector((state: RootState) => state.manageIds)
+  type Post = {
+    title: string;
+    content:string;
+    id: number;
+  };
+  const [post, setPostt] = useState<Post>({
     title: '',
     content: '',
     id: getIds.postId
   })
 
-  const getUser = useSelector((state:any) => state.setUser)
+  const getUser = useSelector((state: RootState) => state.setUser)
   const UserCollectionRef = doc(firebaseDatabase, 'users', getUser.id)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -58,7 +64,7 @@ const CreatePost = () => {
         <h1>Post Title </h1>
         <input
           className='inputFieldStyle'
-          onChange={event => {
+          onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
             setPostt({ ...post, title: event.target.value })
           }}
         ></input>
@@ -66,7 +72,7 @@ const CreatePost = () => {
       <div className='postTitle'>
         <h1>Content </h1>
         <input
-          onChange={event => {
+          onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
             setPostt({ ...post, content: event.target.value })
           }}
           className='contentFieldStyle'
@@ -96,4 +102,4 @@ const CreatePost = () => {
   )
 }
 
-export default CreatePost
+export default CreatePost;

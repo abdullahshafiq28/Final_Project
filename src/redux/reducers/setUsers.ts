@@ -1,7 +1,12 @@
+
+import { AnyAction } from 'redux';
+import { Reducer } from 'redux';
+
+
 const initialUsers = {
-  id: 0,
+  id: '',
   name: '',
-  editPost: '',
+  editPost: { id:0, title:'',content:''},
   isLogin: false,
   posts: [],
   draftPosts: []
@@ -16,7 +21,22 @@ const deleteDraftPost='deleteDraftPost'
 const setDraftPost='setDraftPost'
 const editPost='editPost'
 
-export const setUser = ( state=initialUsers, action) => {
+type temp = {
+  id: number;
+  title: string;
+  content:string;
+}
+
+type initialUsersType = {
+  id: string,
+  name: string,
+  editPost: { id: number, title:string, content:string},
+  isLogin: boolean,
+  posts: temp[],
+  draftPosts: temp[]
+}
+
+export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers, action) => {
   switch (action.type) {
     case setId: {
 

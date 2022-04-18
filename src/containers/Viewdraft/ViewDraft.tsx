@@ -1,18 +1,32 @@
-import { confirmAlert } from 'react-confirm-alert'
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { confirmAlert } from 'react-confirm-alert';
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { Button } from '../../components'
-import { firebaseDatabase } from '../../FirebaseConfig'
-import { deleteDraftPost, setPost } from '../../redux/actions'
+import { Button } from '../../components';
+import { firebaseDatabase } from '../../FirebaseConfig';
+import { deleteDraftPost, setPost } from '../../redux/actions';
+import { RootState } from 'redux/store';
 
-import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const ViewDraft = () => {
-  const [user, setUser] = useState<any>([])
-  const userData = useSelector((state:any) => state.setUser)
+  type temptype = {
+    title: string;
+    content: string;
+    id:number;
+  }
+  type UserType = {
+    id: string;
+    name?: string;
+    editPost?: string;
+    isLogin?: boolean;
+    posts?: temptype[];
+    draftPosts?: temptype[];
+  }
+  const [user, setUser] = useState<UserType>()
+  const userData = useSelector((state:RootState) => state.setUser)
   const UserCollectionRef = collection(firebaseDatabase, 'users')
   const UserCollection = doc(firebaseDatabase, 'users', userData.id)
   const navigate = useNavigate()
@@ -25,8 +39,8 @@ const ViewDraft = () => {
         setUser({ ...temp.data(), id: temp.id })
       }
     })
+    console.log('hi 2',data.docs[0].id)
   }
-
   useEffect(() => {
     getDocS()
   }, [])
@@ -43,8 +57,8 @@ const ViewDraft = () => {
     })
   }
 
-  const editDeleteHandle = (myHelp:string) => {
-    userData.draftPosts.map((temp:any) => {
+  const editDeleteHandle = (myHelp:number) => {
+    userData.draftPosts.map((temp:temptype) => {
       if (temp.id == myHelp) {
         dispatch(deleteDraftPost(temp.id))
         dispatch(setPost(temp))
@@ -82,7 +96,7 @@ const ViewDraft = () => {
         <div className='row postTitle'>
           <h1>Draft POSTS</h1>
         </div>
-        {user?.draftPosts?.map((temp:any, index:any) => (
+        {user?.draftPosts?.map((temp:temptype, index:number) => (
           <div key={index.toString()}>
             <div className='row postTitle marginTop'>
               <h2>{temp.title}</h2>
@@ -113,4 +127,4 @@ const ViewDraft = () => {
   )
 }
 
-export default ViewDraft
+export default ViewDraft;
