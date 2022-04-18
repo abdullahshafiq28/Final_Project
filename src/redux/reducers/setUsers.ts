@@ -10,16 +10,16 @@ const initialUsers = {
   isLogin: false,
   posts: [],
   draftPosts: []
-}
-const setId='setId'
-const setName='setName'
-const setIsLogin='setIsLogin'
-const setLogout='setLogout'
-const setPost='setPost'
-const deletePost='deletePost'
-const deleteDraftPost='deleteDraftPost'
-const setDraftPost='setDraftPost'
-const editPost='editPost'
+};
+const setId='setId';
+const setName='setName';
+const setIsLogin='setIsLogin';
+const setLogout='setLogout';
+const setPost='setPost';
+const deletePost='deletePost';
+const deleteDraftPost='deleteDraftPost';
+const setDraftPost='setDraftPost';
+const editPost='editPost';
 
 type temp = {
   id: number;
@@ -43,7 +43,7 @@ export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers
       return {
         ...state,
         id : action.tempId
-      }
+      };
     }
 
     case setName: {
@@ -51,7 +51,7 @@ export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers
       return {
         ...state,
         name : action.myName
-      }
+      };
     }
 
     
@@ -60,21 +60,21 @@ export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers
       return {
         ...state,
         isLogin : true
-      } 
+      };
     }
     case setLogout: {
 
       return {
         ...state,
         isLogin : false
-      } 
+      };
     }
     case setPost: {
 
       return {
         ...state,
         posts : [...state.posts, action.postData]
-      } 
+      };
     }
 
     case deletePost: {
@@ -82,7 +82,7 @@ export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers
       return {
         ...state,
         posts : state.posts.filter(temp => temp.id != action.delPost)
-      } 
+      };
     }
 
     case deleteDraftPost: {
@@ -90,7 +90,7 @@ export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers
       return {
         ...state,
         draftPosts : state.draftPosts.filter(temp => temp.id != action.delDraftPost)
-      } 
+      };
     }
 
     case setDraftPost: {
@@ -98,7 +98,7 @@ export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers
       return {
         ...state,
         draftPosts : [...state.draftPosts, action.setdraft]
-      } 
+      }; 
     }
 
     case editPost: {
@@ -106,9 +106,9 @@ export const setUser: Reducer<initialUsersType,AnyAction> = ( state=initialUsers
       return {
         ...state,
         editPost : action.seteditpost
-      } 
+      }; 
     }
 
-    default: return state
+    default: return state;
   }
-}
+};

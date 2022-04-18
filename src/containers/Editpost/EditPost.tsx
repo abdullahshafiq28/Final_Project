@@ -11,10 +11,10 @@ import { RootState } from 'redux/store';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const EditPost = () => {
-  const userData = useSelector((state:RootState) => state.setUser)
-  const [postTitle, setPostTitle] = useState<string>(userData.editPost.title)
-  const [postContent, setPostContent] = useState<string>(userData.editPost.content)
-  const [count, setCount] = useState<number>(0)
+  const userData = useSelector((state:RootState) => state.setUser);
+  const [postTitle, setPostTitle] = useState<string>(userData.editPost.title);
+  const [postContent, setPostContent] = useState<string>(userData.editPost.content);
+  const [count, setCount] = useState<number>(0);
   type Post = {
     title: string;
     content:string;
@@ -24,10 +24,10 @@ const EditPost = () => {
     title: '',
     content: '',
     id: userData.editPost.id
-  })
-  const UserCollection = doc(firebaseDatabase, 'users', userData.id)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  });
+  const UserCollection = doc(firebaseDatabase, 'users', userData.id);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submit = () => {
     confirmAlert({
@@ -38,24 +38,24 @@ const EditPost = () => {
           onClick: () => navigate('/Home')
         }
       ]
-    })
-  }
+    });
+  };
 
   const addPostFirabase = async () => {
-    await setDoc(UserCollection, userData)
-  }
+    await setDoc(UserCollection, userData);
+  };
 
   useEffect(() => {
     if (count != 0) {
-      submit()
+      submit();
     }
-    addPostFirabase()
-  }, [userData])
+    addPostFirabase();
+  }, [userData]);
 
   const handleSubmitButton = () => {
-    dispatch(setPost(post))
-    setCount(1)
-  }
+    dispatch(setPost(post));
+    setCount(1);
+  };
 
   return (
     <div className='createPost'>
@@ -68,8 +68,8 @@ const EditPost = () => {
           id='titleInput'
           value={postTitle}
           onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-            setPostt({ ...post, title: event.target.value })
-            setPostTitle(event.target.value)
+            setPostt({ ...post, title: event.target.value });
+            setPostTitle(event.target.value);
           }}
         ></input>
       </div>
@@ -77,8 +77,8 @@ const EditPost = () => {
         <h1>Content </h1>
         <input
           onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-            setPostt({ ...post, content: event.target.value })
-            setPostContent(event.target.value)
+            setPostt({ ...post, content: event.target.value });
+            setPostContent(event.target.value);
           }}
           className='contentFieldStyle'
           value={postContent}
@@ -91,7 +91,7 @@ const EditPost = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default EditPost;

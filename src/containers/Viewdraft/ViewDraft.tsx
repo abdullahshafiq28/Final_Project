@@ -25,25 +25,25 @@ const ViewDraft = () => {
     posts?: temptype[];
     draftPosts?: temptype[];
   }
-  const [user, setUser] = useState<UserType>()
-  const userData = useSelector((state:RootState) => state.setUser)
-  const UserCollectionRef = collection(firebaseDatabase, 'users')
-  const UserCollection = doc(firebaseDatabase, 'users', userData.id)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const [user, setUser] = useState<UserType>();
+  const userData = useSelector((state:RootState) => state.setUser);
+  const UserCollectionRef = collection(firebaseDatabase, 'users');
+  const UserCollection = doc(firebaseDatabase, 'users', userData.id);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const getDocS = async () => {
-    var data = await getDocs(UserCollectionRef)
+    var data = await getDocs(UserCollectionRef);
     data.docs.map(temp => {
       if (temp.id == userData.id) {
-        setUser({ ...temp.data(), id: temp.id })
+        setUser({ ...temp.data(), id: temp.id });
       }
-    })
-    console.log('hi 2',data.docs[0].id)
-  }
+    });
+  };
+
   useEffect(() => {
-    getDocS()
-  }, [])
+    getDocS();
+  }, []);
 
   const submit = () => {
     confirmAlert({
@@ -54,19 +54,19 @@ const ViewDraft = () => {
           onClick: () => navigate('/Home')
         }
       ]
-    })
-  }
+    });
+  };
 
   const editDeleteHandle = (myHelp:number) => {
     userData.draftPosts.map((temp:temptype) => {
       if (temp.id == myHelp) {
-        dispatch(deleteDraftPost(temp.id))
-        dispatch(setPost(temp))
-        setDoc(UserCollection, userData)
-        submit()
+        dispatch(deleteDraftPost(temp.id));
+        dispatch(setPost(temp));
+        setDoc(UserCollection, userData);
+        submit();
       }
-    })
-  }
+    });
+  };
   return (
     <div className='row displayProperty'>
       <div className='sideMenu'>
@@ -74,7 +74,7 @@ const ViewDraft = () => {
           title={'Create Post'}
           onClick={() => {
             if (userData.isLogin == true) {
-              navigate('/CreatePost')
+              navigate('/CreatePost');
             }
           }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
@@ -82,7 +82,7 @@ const ViewDraft = () => {
         <Button
           title={' View Post'}
           onClick={() => {
-            navigate('/ViewPost')
+            navigate('/ViewPost');
           }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
         />
@@ -105,7 +105,7 @@ const ViewDraft = () => {
               <button
                 className='loginbutton'
                 onClick={() => {
-                  editDeleteHandle(temp.id)
+                  editDeleteHandle(temp.id);
                 }}
               >
                 {' '}
@@ -124,7 +124,7 @@ const ViewDraft = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ViewDraft;

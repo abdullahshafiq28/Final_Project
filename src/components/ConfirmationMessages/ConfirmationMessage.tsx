@@ -10,7 +10,7 @@ const ConfirmationMessage = () => {
       </div>
       <div className='confirm-bg'>onClick={}</div>
     </>
-  )
-}
+  );
+};
 
-export default ConfirmationMessage
+export default ConfirmationMessage;

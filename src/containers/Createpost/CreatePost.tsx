@@ -11,7 +11,7 @@ import { RootState } from 'redux/store';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const CreatePost = () => {
-  const getIds = useSelector((state: RootState) => state.manageIds)
+  const getIds = useSelector((state: RootState) => state.manageIds);
   type Post = {
     title: string;
     content:string;
@@ -21,13 +21,13 @@ const CreatePost = () => {
     title: '',
     content: '',
     id: getIds.postId
-  })
+  });
 
-  const getUser = useSelector((state: RootState) => state.setUser)
-  const UserCollectionRef = doc(firebaseDatabase, 'users', getUser.id)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const [count, setCount] = useState<number>(0)
+  const getUser = useSelector((state: RootState) => state.setUser);
+  const UserCollectionRef = doc(firebaseDatabase, 'users', getUser.id);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [count, setCount] = useState<number>(0);
 
   const submit = () => {
     confirmAlert({
@@ -38,25 +38,25 @@ const CreatePost = () => {
           onClick: () => navigate('/Home')
         }
       ]
-    })
-  }
+    });
+  };
 
   const addPostFirabase = async () => {
-    await setDoc(UserCollectionRef, getUser)
-  }
+    await setDoc(UserCollectionRef, getUser);
+  };
 
   useEffect(() => {
     if (count != 0) {
-      submit()
+      submit();
     }
-    addPostFirabase()
-  }, [getUser])
+    addPostFirabase();
+  }, [getUser]);
 
   const reducerHandler = async () => {
-    dispatch(setPostId())
-    dispatch(setdraftPostId())
-    setCount(1)
-  }
+    dispatch(setPostId());
+    dispatch(setdraftPostId());
+    setCount(1);
+  };
 
   return (
     <div className='createPost'>
@@ -65,7 +65,7 @@ const CreatePost = () => {
         <input
           className='inputFieldStyle'
           onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-            setPostt({ ...post, title: event.target.value })
+            setPostt({ ...post, title: event.target.value });
           }}
         ></input>
       </div>
@@ -73,7 +73,7 @@ const CreatePost = () => {
         <h1>Content </h1>
         <input
           onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-            setPostt({ ...post, content: event.target.value })
+            setPostt({ ...post, content: event.target.value });
           }}
           className='contentFieldStyle'
         ></input>
@@ -81,7 +81,7 @@ const CreatePost = () => {
       <div className='marginProperty displayProperty'>
         <button
           onClick={() => {
-            reducerHandler(), dispatch(setDraftPost(post))
+            reducerHandler(), dispatch(setDraftPost(post));
           }}
           className='postButtonStyle'
           disabled={!post.content || !post.title}
@@ -90,7 +90,7 @@ const CreatePost = () => {
         </button>
         <button
           onClick={() => {
-            reducerHandler(), dispatch(setPost(post))
+            reducerHandler(), dispatch(setPost(post));
           }}
           className='marginProperty postButtonStyle'
           disabled={!post.content || !post.title}
@@ -99,7 +99,7 @@ const CreatePost = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CreatePost;

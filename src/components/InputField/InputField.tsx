@@ -18,6 +18,6 @@ const InputField = ({ styling, onChange, type }:props) => (
       type={type}
     />
   </div>
-)
+);
 
-export default InputField
+export default InputField;

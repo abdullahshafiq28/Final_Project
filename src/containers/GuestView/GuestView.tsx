@@ -14,13 +14,14 @@ const GuestView = () => {
     draftPosts?: temptype[];
   }
 
-  const [user, setUser] = useState<UserType[]>()
-  const UserCollectionRef = collection(firebaseDatabase, 'users')
+  const [user, setUser] = useState<UserType[]>();
+  const UserCollectionRef = collection(firebaseDatabase, 'users');
 
   const getDocS = async () => {
-    var data = await getDocs(UserCollectionRef)
-    setUser(data.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-  }
+    var data = await getDocs(UserCollectionRef);
+    setUser(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  };
+
   type temptype = {
     title: string;
     content: string;
@@ -28,8 +29,8 @@ const GuestView = () => {
   }
 
   useEffect(() => {
-    getDocS()
-  }, [])
+    getDocS();
+  }, []);
 
   return (
     <div className='row displayProperty'>
@@ -61,7 +62,7 @@ const GuestView = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default GuestView;

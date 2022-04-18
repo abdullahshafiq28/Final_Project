@@ -8,22 +8,22 @@ import { InputField } from '../../components';
 import { setName } from '../../redux/actions';
 
 const Register = () => {
-  const [registerEmail, setRegisterEmail] = useState<string>('')
-  const [registerPassword, setRegisterPassword] = useState<string>('')
-  const [registerName, setRegisterName] = useState<string>('')
-  const [displayError, setDisplayError] = useState<string>()
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const [registerEmail, setRegisterEmail] = useState<string>('');
+  const [registerPassword, setRegisterPassword] = useState<string>('');
+  const [registerName, setRegisterName] = useState<string>('');
+  const [displayError, setDisplayError] = useState<string>();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const register = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-      dispatch(setName(registerName))
-      navigate('/')
+      await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+      dispatch(setName(registerName));
+      navigate('/');
     } catch (error) {
-      setDisplayError('User Registeration Failed!!!')
+      setDisplayError('User Registeration Failed!!!');
     }
-  }
+  };
 
   return (
     <div className='boxDesign'>
@@ -32,21 +32,21 @@ const Register = () => {
       </div>
       <InputField
         onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-          setRegisterName(event.target.value)
+          setRegisterName(event.target.value);
         }}
         styling={{ container: 'smallStyle', mytext: 'Name' }}
         type={'name'}
       />
       <InputField
         onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-          setRegisterEmail(event.target.value)
+          setRegisterEmail(event.target.value);
         }}
         styling={{ container: 'smallStyle', mytext: 'Email...' }}
         type={'email'}
       />
       <InputField
         onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-          setRegisterPassword(event.target.value)
+          setRegisterPassword(event.target.value);
         }}
         styling={{ container: 'smallStyle', mytext: 'Password...' }}
         type={'password'}
@@ -65,6 +65,7 @@ const Register = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
+
 export default Register;

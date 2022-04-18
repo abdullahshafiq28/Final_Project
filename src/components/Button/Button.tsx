@@ -16,6 +16,6 @@ const Button = ({ styling, onClick, title }:props) => (
       {title}
     </button>
   </div>
-)
+);
 
-export default Button
+export default Button;

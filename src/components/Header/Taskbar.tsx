@@ -1,11 +1,10 @@
-import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch  } from 'react-redux';
 
 const Taskbar = () => {
-  const getUser = useSelector((state:any) => state.setUser)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const getUser = useSelector((state:any) => state.setUser);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className='taskBar'>
@@ -14,7 +13,7 @@ const Taskbar = () => {
           <button
             className='buttonStyle'
             onClick={() => {
-              navigate('/Login')
+              navigate('/Login');
             }}
           >
             Login
@@ -26,8 +25,8 @@ const Taskbar = () => {
           <button
             className='buttonStyle'
             onClick={() => {
-              dispatch({ type: 'setLogout' })
-              navigate('/')
+              dispatch({ type: 'setLogout' });
+              navigate('/');
             }}
           >
             Logout
@@ -38,13 +37,14 @@ const Taskbar = () => {
         <button
           className='buttonStyle'
           onClick={() => {
-            navigate('/Signup')
+            navigate('/Signup');
           }}
         >
           Sign Up
         </button>
       </div>
     </div>
-  )
-}
-export default Taskbar
+  );
+};
+
+export default Taskbar;

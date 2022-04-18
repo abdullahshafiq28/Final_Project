@@ -17,21 +17,21 @@ import {
 } from '../../redux/actions';
 
 const  Login = (): JSX.Element => {
-  const [loading, setLoading] = useState<boolean>()
-  const [email, setEmail] = useState < string > ('')
-  const [password, setPassword] = useState < string > ('')
-  const [userData, setUserData] = useState<UserType[]>()
-  const [displayError, setDisplayError] = useState < string >('') 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const UserCollection = collection(firebaseDatabase, 'users')
+  const [loading, setLoading] = useState<boolean>();
+  const [email, setEmail] = useState < string > ('');
+  const [password, setPassword] = useState < string > ('');
+  const [userData, setUserData] = useState<UserType[]>();
+  const [displayError, setDisplayError] = useState < string >('') ;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const UserCollection = collection(firebaseDatabase, 'users');
 
   const getUserDocS = async () => {
-    setLoading(true)
-    const data = await getDocs(UserCollection)
-    setUserData(data.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-    setLoading(false)
-  }
+    setLoading(true);
+    const data = await getDocs(UserCollection);
+    setUserData(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    setLoading(false);
+  };
   type temptype = {
     title: string;
     content: string;
@@ -46,32 +46,32 @@ const  Login = (): JSX.Element => {
     draftPosts?: temptype[];
   }
   useEffect(() => {
-    getUserDocS()
-  }, [])
+    getUserDocS();
+  }, []);
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password)
+      const user = await signInWithEmailAndPassword(auth, email, password);
       userData?.forEach( (temp:UserType) => {
         if (temp.id == user.user.uid) {
-          dispatch(setName(temp.name))
+          dispatch(setName(temp.name));
           temp.posts?.map((temp:temptype) => {
-            dispatch(setPost(temp))
-            dispatch(setPostId())
-          })
+            dispatch(setPost(temp));
+            dispatch(setPostId());
+          });
           temp.draftPosts?.map((temp:temptype) => {
-            dispatch(setDraftPost(temp))
-            dispatch(setdraftPostId())
-          })
+            dispatch(setDraftPost(temp));
+            dispatch(setdraftPostId());
+          });
         }
-      })
-      dispatch(setId(user.user.uid))
-      dispatch(setIsLogin())
-      navigate('/Home')
+      });
+      dispatch(setId(user.user.uid));
+      dispatch(setIsLogin());
+      navigate('/Home');
     } catch (error) {
-      setDisplayError('Fire Authentication Error!')
+      setDisplayError('Fire Authentication Error!');
     }
-  }
+  };
 
   return (
     <div>
@@ -82,14 +82,14 @@ const  Login = (): JSX.Element => {
           </div>
           <InputField
             onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-              setEmail(event.target.value)
+              setEmail(event.target.value);
             }}
             styling={{ container: 'smallStyle', mytext: 'Email...' }}
             type={'email'}
           />
           <InputField
             onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-              setPassword(event.target.value)
+              setPassword(event.target.value);
             }}
             styling={{ container: 'smallStyle', mytext: 'Password...' }}
             type={'password'}
@@ -106,7 +106,7 @@ const  Login = (): JSX.Element => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Login;

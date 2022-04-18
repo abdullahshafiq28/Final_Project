@@ -1,8 +1,7 @@
-import { React } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Taskbar } from './components'
-import {  Home, CreatePost, Register, EditPost, ViewDraft, ViewPost, GuestView, Login } from './containers'
+import { Taskbar } from './components';
+import {  Home, CreatePost, Register, EditPost, ViewDraft, ViewPost, GuestView, Login } from './containers';
 
 
 const App = () => (
@@ -19,6 +18,6 @@ const App = () => (
       <Route path='/EditPost' element={<EditPost />} />
     </Routes>
   </Router>
-)
+);
 
-export default App
+export default App;

@@ -14,22 +14,23 @@ const Home = () => {
     posts?: temptype[];
     draftPosts?: temptype[];
   }
-  const [user, setUser] = useState<UserType[]>()
-  const UserCollectionRef = collection(firebaseDatabase, 'users')
-  const navigate = useNavigate()
+
+  const [user, setUser] = useState<UserType[]>();
+  const UserCollectionRef = collection(firebaseDatabase, 'users');
+  const navigate = useNavigate();
 
   const getUserDocs = async () => {
-    var data = await getDocs(UserCollectionRef)
-    setUser(data.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-  }
+    var data = await getDocs(UserCollectionRef);
+    setUser(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  };
   type temptype = {
     title: string;
     content: string;
     id:string;
   }
   useEffect(() => {
-    getUserDocs()
-  }, [])
+    getUserDocs();
+  }, []);
 
   return (
     <div className='row displayProperty'>
@@ -37,21 +38,21 @@ const Home = () => {
         <Button
           title={'Create Post'}
           onClick={() => {
-            navigate('/CreatePost')
+            navigate('/CreatePost');
           }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
         />
         <Button
           title={' My Posts'}
           onClick={() => {
-            navigate('/ViewPost')
+            navigate('/ViewPost');
           }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
         />
         <Button
           title={' View Draft'}
           onClick={() => {
-            navigate('/ViewDraft')
+            navigate('/ViewDraft');
           }}
           styling={{ container: 'menuStyle', button: 'menuButtonStyle' }}
         />
@@ -82,7 +83,7 @@ const Home = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;
