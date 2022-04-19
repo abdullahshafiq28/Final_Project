@@ -1,23 +1,23 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Register from './Register'
-import CreatePost from './CreatePost'
-import Home from './Home'
-import Login from './Login';
-import ViewDraft from './ViewDraft'
-import ViewPost from './ViewPost';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-const App = () =>  (
+import { Taskbar } from './components';
+import {  Home, CreatePost, Register, EditPost, ViewDraft, ViewPost, GuestView, Login } from './containers';
+
+
+const App = () => (
   <Router>
+    <Taskbar />
     <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/Login' element={<Login />} />
-        <Route path='/Signup' element={<Register />} />
-        <Route path='/CreatePost' element={<CreatePost />} />
-        <Route path='/ViewDraft' element={<ViewDraft />} />
-        <Route path='/ViewPost' element={<ViewPost />} />
-    </Routes>        
+      <Route path='/' element={<GuestView />} />
+      <Route path='/Home' element={<Home />} />
+      <Route path='/Login' element= {<Login />} />
+      <Route path='/Signup' element={<Register />} />
+      <Route path='/CreatePost' element={<CreatePost />} />
+      <Route path='/ViewDraft' element={<ViewDraft />} />
+      <Route path='/ViewPost' element={<ViewPost />} />
+      <Route path='/EditPost' element={<EditPost />} />
+    </Routes>
   </Router>
-)
+);
 
 export default App;

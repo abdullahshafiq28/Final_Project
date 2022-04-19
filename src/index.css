@@ -24,81 +24,199 @@ code {
   margin-bottom: 20px;
 }
 
+.editbutton {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  margin-left: 20px !important;
+}
+
 .taskBar {
   display: flex !important;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  background-color: #202124;
+  padding-top: 50px;
+  background-image: url('./assets/images/index1.png');
+  background-size: cover;
+  padding-bottom: 200px;
 }
+
 .buttonStyle {
   width: 85px !important;
   height: 40px;
   font-size: 18px;
+  color: white;
+  background-color:peru;
 }
 
 .loginButton {
   margin-left: 75% !important;
 }
+
 .signUpButton {
   margin-left: 5% !important;
 }
+
 .sideMenu {
   width: 15% !important;
-  background-color: #202124;
+  background-color:rgb(222, 139, 39);
   padding-bottom: 39%;
+  background-image: url('./assets/images/index1.png'); 
 }
+
 .menuStyle {
+  margin-top: 50px;
   padding-left: 27%;
   padding-top: 10%;
 }
+
 .menuButtonStyle {
   width: 125px !important;
   height: 40px;
   font-size: 18px;
+  color: white;
+  background-color:peru;
 }
+
+hr.line{
+  border: 2px solid black;
+  border-radius: 1px;
+  margin-bottom: 5%;
+  margin-top: 10%;
+  width:30% !important;
+}
+.confirm-bg {
+  position: fixed;
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #202020;
+  opacity: 0.55;
+  overflow: hidden; /* disable scrolling*/
+  z-index: 2; /* higher than all other items, but lower than 
+    the confirm box*/
+}
+
+.container {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  background-color: #f37736;
+  width: 230px;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  border-radius: 0.3rem;
+  padding: 1rem;
+  z-index: 5; /* Higher than the z-index of the background */
+}
+
+.confirmation-text {
+  display: flex;
+  color: white;
+  margin: 0.5rem 0 2rem;
+  text-align: center;
+  line-height: 2rem;
+  font-size: 1.1rem;
+}
+
+.button-container {
+  display: flex;
+  margin-top: auto;
+  justify-content: space-between;
+}
+
+.confirmation-button, delete-button {
+  display: inline-flex;
+  background-color: #cc0000;
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+}
+
+.cancel-button {
+  background-color: #999999;
+}
+
+.confirmation-button:hover {
+  background-color: red;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #b2b2b2;
+  cursor: pointer;
+}
+
+
 .createPost {
   padding-top: 7%;
+  margin-left: 11% !important;
 }
+
 .postTitle {
   text-align: center;
-  color: darkslategray;
+  color: black;
 }
+
+.stylecenter
+{
+  margin-right: 30% !important;
+}
+
 .postContent {
   margin-right: 5% !important;
   font-size: 20px !important;
 }
+
 .marginProperty {
   margin-left: 25% !important;
 }
+
 .marginTop {
   margin-top: 40px !important;
 }
+
 .marginPropertyLeft {
   margin-left: 80% !important;
 }
+
 .author {
   margin-left: 80% !important;
   font-size: larger;
   font-style: italic;
   color: brown;
 }
+
 .marginLeft {
   margin-left: 45% !important;
 }
+
 .inputFieldStyle {
   width: 60%;
   height: 30px;
 }
+
 .contentFieldStyle {
   width: 60%;
   height: 30px;
   padding-bottom: 15%;
 }
+
 .postButtonStyle {
   width: 125px !important;
   height: 40px;
   font-size: 18px;
   margin-top: 3%;
+}
+
+.submitButtonStyle {
+  width: 125px !important;
+  height: 40px;
+  font-size: 18px;
+  margin-top: 3%;
+  margin-left: 18%;
 }
 
 .boxDesign {
@@ -114,21 +232,33 @@ code {
   width: 25% !important;
   background-color: white !important;
 }
+
 .smallStyle {
   margin-top: 20px;
 }
+
 .posts {
   width: 80% !important;
   margin-left: 5%;
 }
+
 .row {
   width: 100% !important;
 }
+
 .displayProperty {
   display: flex !important;
 }
+
 .postTitle {
   margin-left: -15% !important;
+}
+.errorclass
+{
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 10px;
+  margin: 20px;
 }
 @media only screen and (min-width: 800px) {
   .boxDesign {

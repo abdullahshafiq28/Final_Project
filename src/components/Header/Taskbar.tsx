@@ -1,0 +1,50 @@
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch  } from 'react-redux';
+
+const Taskbar = () => {
+  const getUser = useSelector((state:any) => state.setUser);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  return (
+    <div className='taskBar'>
+      {!getUser.isLogin && (
+        <div className='loginButton'>
+          <button
+            className='buttonStyle'
+            onClick={() => {
+              navigate('/Login');
+            }}
+          >
+            Login
+          </button>
+        </div>
+      )}
+      {getUser.isLogin && (
+        <div className='loginButton'>
+          <button
+            className='buttonStyle'
+            onClick={() => {
+              dispatch({ type: 'setLogout' });
+              navigate('/');
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      )}
+      <div className='signUpButton'>
+        <button
+          className='buttonStyle'
+          onClick={() => {
+            navigate('/Signup');
+          }}
+        >
+          Sign Up
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Taskbar;
