@@ -1,5 +1,10 @@
-# Getting Started with Create React App
-
+# Project Title
+This is Blog Post React Application. In which User can
+Create Blog Posts,
+See Timeline,
+Draft Blog Post,
+Delete Blog Post,
+Edit Blog Post.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
